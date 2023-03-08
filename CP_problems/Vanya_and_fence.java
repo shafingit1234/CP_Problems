@@ -21,6 +21,7 @@ public class Vanya_and_fence {
 			}
 			i++;
 		}
+		//gjhbmbbmnb
 		System.out.println(ans1 + ans2*2);
 		return ;
 	}
