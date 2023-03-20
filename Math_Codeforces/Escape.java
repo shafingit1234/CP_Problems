@@ -15,18 +15,25 @@ public class Escape {
 			System.out.println(ans);
 			return ;
 		}
-		while(c > 0) {
-			double meet_point = (vp*t)/(vd - vp);
-			double new_time = t + meet_point + f;
-			double rem_dist = c - vp*(new_time);
-			c = rem_dist;
-//			System.out.println(rem_dist);
-			if(c < 0) {
+		double fiona_distance= vp*t;
+		while(fiona_distance < c) {
+//			double meet_point = (vp*t)/(vd - vp);
+//			double new_time = t + meet_point + f;
+//			double rem_dist = c - vp*(new_time);
+//			c = rem_dist;
+////			System.out.println(rem_dist);
+//			if(c < 0) {
+//				break;
+//			}
+//			ans++;
+//			t = new_time;
+			double time_taken_by_dragon = fiona_distance/(vd-vp);
+			fiona_distance += vp*time_taken_by_dragon;
+			if(fiona_distance >= c) {
 				break;
 			}
 			ans++;
-			t = new_time;
-			
+			fiona_distance += vp*f + (fiona_distance/vd)*vp;
 		}
 		System.out.println(ans);
 //		1
