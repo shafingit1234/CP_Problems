@@ -9,7 +9,8 @@ public class Theatre_Square {
 		double b = sc.nextLong();
 		double k = sc.nextLong();
 		System.out.println((long)(Math.ceil(a/k)*Math.ceil(b/k)));
-		
+		//Hello this is a comment
 		return ;
+		
 	}
 }
