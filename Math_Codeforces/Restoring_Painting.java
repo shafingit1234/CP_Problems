@@ -26,6 +26,7 @@ public class Restoring_Painting {
 			if(check(z , n) && check(e , n) && check(y , n)) {
 				ans++;
 			}
+			
 		}
 		System.out.println(ans*n);
 		//multiplying with n, because with center there is no constraint,

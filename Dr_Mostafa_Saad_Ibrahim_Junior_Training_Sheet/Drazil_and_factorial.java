@@ -1,4 +1,4 @@
-package CP_problems;
+package Dr_Mostafa_Saad_Ibrahim_Junior_Training_Sheet;
 
 import java.util.HashMap;
 import java.util.Scanner;
