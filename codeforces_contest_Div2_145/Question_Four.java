@@ -7,17 +7,26 @@ public class Question_Four {
 	public static long swap_cost = Long.parseLong("1000000000000");
 	public static long del_cost=   Long.parseLong("1000000000001");
 	public static void main(String[] args) {
-		int testcases = sc.nextInt();
-		while(testcases > 0) {
-			char[] s =sc.next().toCharArray();
-			int[] arr = new int[s.length];
-			for(int i=0 ; i<s.length; i++) {
-				arr[i] = s[i] - '0';
-			}
-			Long[][] dp = new Long[arr.length][4];
-			System.out.println(findAnswer(0, arr, 0, dp));
-			testcases--;
-		}
+//		int testcases = sc.nextInt();
+//		while(testcases > 0) {
+//			char[] s =sc.next().toCharArray();
+//			int[] arr = new int[s.length];
+//			for(int i=0 ; i<s.length; i++) {
+//				arr[i] = s[i] - '0';
+//			}
+//			Long[][] dp = new Long[arr.length][4];
+//			System.out.println(findAnswer(0, arr, 0, dp));
+//			testcases--;
+//		}
+		int a = 456;
+		int b ;
+		int c;
+		int d = 10;
+		b = a/d;
+		c = a-b;
+//		System.out.println(a*b/c-d);
+		System.out.println(c);
+//		System.out.println(a*b/(c-d));
 		
 	}
 	public static long findAnswer(int idx, int[] arr, int last,Long[][] dp) {
