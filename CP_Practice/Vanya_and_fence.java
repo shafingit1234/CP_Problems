@@ -1,4 +1,4 @@
-package Dr_Mostafa_Saad_Ibrahim_Junior_Training_Sheet;
+package CP_Practice;
 
 import java.util.Scanner;
 
