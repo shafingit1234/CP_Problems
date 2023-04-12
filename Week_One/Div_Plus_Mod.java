@@ -5,33 +5,20 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
-import Java_CP_Template.Template_One.FastScanner;
+//import Java_CP_Template.Template_One.FastScanner;
 
-public class XOR_Specialist {
+public class Div_Plus_Mod {
 	public static FastScanner sc = new FastScanner();
 	public static void findAnswer() {
-		int n = sc.nextInt();
-		long arr[] = new long[n];
-		for(int i=0 ; i<n ; i++) {
-			arr[i] = sc.nextLong();
+		long l =sc.nextLong();
+		long r =sc.nextLong();
+		long k =sc.nextLong();
+		long ans = (r/k) + r%k;
+		long temp = r - r%k - 1;
+		if(temp >= l) {
+			ans = Math.max(ans, (temp/k) + (k-1));
 		}
-		if(n%2 == 0) {
-			System.out.println("YES");
-			return ;
-		}
-		else {
-//			boolean check = true;
-			for(int i=0 ;i < n-1 ; i++) {
-				if(arr[i] >= arr[i+1]) {
-//					check = false;
-//					break;
-					System.out.println("YES");
-					return ;
-				}
-			}
-		}
-		System.out.println("NO");
-		return ;
+		System.out.println(ans);
 	}
 	public static class FastScanner {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));

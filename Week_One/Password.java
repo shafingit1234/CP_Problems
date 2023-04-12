@@ -9,29 +9,52 @@ import java.util.StringTokenizer;
 
 public class Password {
 	public static long dp[] ;
-	public static long power[] ;
-	public static long mod = 1000000007;
+	public static long dp_one[];
+	public static long dp_two[];
+	public static long power_one[] ;
+	public static long power_two[];
+	public static long mod_one = 1000003;
+	public static long mod_two = 1000000007;
+	public static long prime_one = 31;
+	public static long prime_two = 39;
 	public static long bigamod = 100549567L;
 	public static FastScanner sc = new FastScanner();
 	public static void preProcess(String s) {
 		int n = s.length();
-		dp = new long[n];
-		power = new long[n];
-		long prime = 947;
-		long pow = prime;
-		dp[0] = s.charAt(0) - 'a' + 1;
-		power[0] = 1;
+		dp_one = new long[n];
+		dp_two = new long[n];
+		power_one = new long[n];
+		power_two = new long[n];
+//		long prime = 31;
+		long pow = prime_one;
+		dp_one[0] = s.charAt(0) - 'a' + 1;
+		power_one[0] = 1;
 		for(int i=1 ; i<n ; i++) {
-			dp[i] = (dp[i-1]) + (s.charAt(i) - 'a' + 1)*pow%bigamod;
-			power[i] = pow;
-			pow = (pow*prime)%bigamod;
+			dp_one[i] = ((dp_one[i-1]) + (s.charAt(i) - 'a' + 1)*pow%mod_one)%mod_one;
+			power_one[i] = pow;
+			pow = (pow*prime_one)%mod_one;
 		}
 		
+		power_two[0] = 1;
+		pow = prime_two;
+		dp_two[0] = s.charAt(0) - 'a' + 1;
+		for(int i=1 ; i<n ; i++) {
+			dp_two[i] = ((dp_two[i-1]) + (s.charAt(i) - 'a' + 1)*pow%mod_two)%mod_two;
+			power_two[i] = pow;
+			pow = (pow*prime_two)%mod_two;
+		}
 	}
 	public static long findHash(int l, int r) {
-		long ans = dp[r];
+		long ans = dp_one[r];
 		if(l > 0) {
-			ans = (ans - dp[l-1] + bigamod)%bigamod;
+			ans = (ans - dp_one[l-1] + mod_one)%mod_one;
+		}
+		return ans;
+	}
+	public static long findHashTwo(int l, int r) {
+		long ans = dp_two[r];
+		if(l > 0) {
+			ans = (ans - dp_two[l-1] + mod_two)%mod_two;
 		}
 		return ans;
 	}
@@ -45,12 +68,16 @@ public class Password {
 //		then search for same prefix string in the mid,if there is a match in hash values.
 		int ans = 0;
 		for(int i=0 ; i<n-1 ; i++) {
-			long pref = dp[i];
-			long suff = findHash(n-i-1 , n-1);
-			if((pref*power[n-i-1])%bigamod == suff) {
+			long pref_one = dp_one[i];
+			long pref_two = dp_two[i];
+			long suff_two = findHashTwo(n-i-1 , n-1);
+			long suff_one = findHash(n-i-1 , n-1);
+//			long suff = findHash(n-i-1 , n-1);
+			if((pref_one*power_one[n-i-1])%mod_one == suff_one && (pref_two*power_two[n-i-1])%mod_two == suff_two) {
 				for(int j =1 , k=i+1 ; k<n-1 ; j++,k++) {
-					long mid = findHash(j , k);
-					if((pref*power[j])%bigamod == mid) {
+					long mid_one = findHash(j , k);
+					long mid_two = findHashTwo(j , k);
+					if((pref_one*power_one[j])%mod_one == mid_one && (pref_two*power_two[j])%mod_two == mid_two) {
 //						ans = Math.max(ans, i+1);
 						ans = i+1;
 						break;
