@@ -1,11 +1,14 @@
-package Java_CP_Template;
+package Week_One;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.StringTokenizer;
 
-public class Template_One {
+//import Java_CP_Template.Template_One.FastScanner;
+
+public class Restore_The_Array {
 	public static FastScanner sc = new FastScanner();
 	public static long mod = (long)(1e9 + 7);
 	public static Long modexp(Long a,Long b)
@@ -22,7 +25,25 @@ public class Template_One {
         return ans;
     }
 	public static void findAnswer() {
-		
+		int n = sc.nextInt();
+		long arr[] = new long[n-1];
+		for(int i=0; i<n-1 ; i++) {
+			arr[i] = sc.nextLong();	
+		}
+		ArrayList<Long> al = new ArrayList<>();
+		al.add(arr[0]);
+		for(int i=0 ; i<arr.length-1 ; i++) {
+			long diff = Math.min(arr[i],arr[i+1]);
+			al.add(diff);
+		}
+//		al.add(Math.max(, b))
+		long diff = al.get(al.size()-1);
+		long diff_two = arr[arr.length-1];
+		al.add(Math.max(diff, diff_two));
+		for(long l : al) {
+			System.out.print(l + " ");
+		}
+		System.out.println();
 	}
 	public static class FastScanner {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -53,8 +74,8 @@ public class Template_One {
  
     }
 	public static void main(String[] args) {
-//		int tc = sc.nextInt();
-		int tc = 1;
+		int tc = sc.nextInt();
+//		int tc = 1;
 		while(tc-- > 0) {
 			findAnswer();
 		}

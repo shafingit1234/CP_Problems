@@ -1,28 +1,38 @@
-package Java_CP_Template;
+package Week_One;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
-public class Template_One {
+//import Java_CP_Template.Template_One.FastScanner;
+
+public class Illya_And_Account {
 	public static FastScanner sc = new FastScanner();
-	public static long mod = (long)(1e9 + 7);
-	public static Long modexp(Long a,Long b)
-    { Long ans=(long)1;
-        while(b>0)
-        {
-          if((b&1)!=0)// b%2!=0
-          {
-              ans=(ans*a)%mod;
-          }
-          a=(a*a)%mod;
-          b=b>>1;  
-        }
-        return ans;
-    }
 	public static void findAnswer() {
-		
+		String str = sc.next();
+		int start = 0;
+		if(str.charAt(0) == '-') {
+			start++;
+		}
+		else {
+			System.out.println(str);
+			return ;
+		}
+		String temp_one = str.substring(start, str.length()-1);
+		String temp_two = str.substring(start, str.length()-2) + str.charAt(str.length()-1);
+		String ans = temp_one;
+		if(Long.parseLong(temp_one) > Long.parseLong(temp_two)) {
+			ans = temp_two;
+		}
+//		System.out.println(ans);
+		if(str.length() >= 3) {
+			if(Long.parseLong(ans) != 0) {
+				
+				ans = "-" + ans;
+			}
+		}
+		System.out.println(ans);
 	}
 	public static class FastScanner {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));

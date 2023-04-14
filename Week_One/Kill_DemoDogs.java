@@ -1,13 +1,34 @@
-package Java_CP_Template;
+package Week_One;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
-public class Template_One {
+//import Java_CP_Template.Template_One.FastScanner;
+
+public class Kill_DemoDogs {
+	public static long mod = (long) (1e9 + 7);
 	public static FastScanner sc = new FastScanner();
-	public static long mod = (long)(1e9 + 7);
+	public static long findSquareSummation(long a) {
+//		long ans= ((a*(a+1)*((2*a) + 1))%mod)/3;
+		long ans = ((((a*(a+1))%mod)*(2*(a) + 1)%mod)%mod);
+		ans = (ans*(modexp((long)3, mod-2)))%mod;
+		return ans;
+	}
+	public static long findNormalSummation(long a) {
+//		long ans = ((a*(a + 1))%mod)/2;
+		long ans = (a*(a+1))%mod;
+		ans = (ans*modexp((long)2, mod-2))%mod;
+//		long ans = ((a*(a+1))%mod/2;
+		return ans;
+	}
+	public static void findAnswer() {
+		long n = sc.nextLong();
+		long ans = ((findSquareSummation((n-1)%mod)) + findNormalSummation((n-1)%mod) + (n*n)%mod)%mod;
+		System.out.println((2022*ans)%mod);
+		return ;
+	}
 	public static Long modexp(Long a,Long b)
     { Long ans=(long)1;
         while(b>0)
@@ -21,9 +42,6 @@ public class Template_One {
         }
         return ans;
     }
-	public static void findAnswer() {
-		
-	}
 	public static class FastScanner {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer("");
@@ -53,8 +71,8 @@ public class Template_One {
  
     }
 	public static void main(String[] args) {
-//		int tc = sc.nextInt();
-		int tc = 1;
+		int tc = sc.nextInt();
+//		int tc = 1;
 		while(tc-- > 0) {
 			findAnswer();
 		}

@@ -1,11 +1,13 @@
-package Java_CP_Template;
+package Week_One;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
-public class Template_One {
+import Java_CP_Template.Template_One.FastScanner;
+
+public class Nirvana {
 	public static FastScanner sc = new FastScanner();
 	public static long mod = (long)(1e9 + 7);
 	public static Long modexp(Long a,Long b)
@@ -21,8 +23,35 @@ public class Template_One {
         }
         return ans;
     }
+	public static long findProduct(String str) {
+		long prod = 1;
+		for(int i=0 ; i<str.length(); i++) {
+			prod *= (str.charAt(i) - '0');
+//			System.out.println(str.charAt(i) - '0');
+		}
+		return prod;
+	}
+	public static long findProduct(long num) {
+		long prod = 1;
+		while(num > 0) {
+			prod = prod*(num%10);
+			num = num/10;
+		}
+		return prod;
+	}
 	public static void findAnswer() {
-		
+		StringBuilder sb = new StringBuilder("" + sc.next());
+		long mx = findProduct(sb.toString());
+		long num = Long.parseLong(sb.toString());
+		int dig = sb.length();
+		long x = 10;
+		for(int i=1 ; i<dig ; i++) {
+			num = num - ((num%x) + 1);
+			mx = Math.max(mx, findProduct(num));
+//			System.out.println(num);
+			x *= 10;
+		}
+		System.out.println(mx);
 	}
 	public static class FastScanner {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));

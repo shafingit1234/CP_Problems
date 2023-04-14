@@ -1,29 +1,34 @@
-package Java_CP_Template;
+package Week_One;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.Arrays;
 import java.util.StringTokenizer;
 
-public class Template_One {
+//import Java_CP_Template.Template_One.FastScanner;
+
+public class Puzzles {
 	public static FastScanner sc = new FastScanner();
-	public static long mod = (long)(1e9 + 7);
-	public static Long modexp(Long a,Long b)
-    { Long ans=(long)1;
-        while(b>0)
-        {
-          if((b&1)!=0)// b%2!=0
-          {
-              ans=(ans*a)%mod;
-          }
-          a=(a*a)%mod;
-          b=b>>1;  
-        }
-        return ans;
-    }
 	public static void findAnswer() {
-		
+		int n = sc.nextInt();
+		int m  =sc.nextInt();
+		int arr[] = new int[m];
+		for(int i=0 ; i<m ; i++) {
+			arr[i] = sc.nextInt();
+		}
+		Arrays.sort(arr);
+		int start = 0;
+		int end = n-1;
+		int diff = Integer.MAX_VALUE;
+		while(end < arr.length) {
+			diff = Math.min(diff, (arr[end] - arr[start]));
+			start++;
+			end++;
+		}
+		System.out.println(diff);
 	}
+	
 	public static class FastScanner {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer("");
