@@ -51,6 +51,52 @@ public class Question_C {
 			 this.b =b;
 		 }
 	 }
+	 public static void findAnswerTwo() {
+		int n = sc.nextInt();
+		long arr[] = new long[n];
+		long temp_arr[] = new long[n];
+		for(int i=0 ; i<n ; i++) {
+			arr[i] = sc.nextLong();
+			temp_arr[i] = arr[i];
+		}
+//		if(n == 1) {
+//			System.out.println("NO");
+//			return ;
+//		}
+		long mx  = mex(temp_arr, n);
+		if(mx == 0) {
+			System.out.println("YES");
+			return ;
+		}
+		if(mx == n) {
+			System.out.println("NO");
+			return ;
+		}
+		int first_occurence = -1;
+		int last_occurence = 0;
+		for(int i=0 ; i<n ; i++) {
+			if(arr[i] == mx + 1) {
+				if(first_occurence == -1) {
+					first_occurence = i;
+				}
+				last_occurence = i;
+			}
+		}
+		if(first_occurence == -1) {
+			System.out.println("YES");
+			return ;
+		}
+		for(int i=first_occurence; i<=last_occurence ; i++) {
+			arr[i] = mx;
+		}
+		long temp_mx = mex(arr, n);
+		if(mx + 1== temp_mx) {
+			System.out.println("YES");
+		}
+		else {
+			System.out.println("NO");
+		}
+	 }
 	public static void findAnswer() {
 		int n = sc.nextInt();
 		long arr[] = new long[n];
@@ -59,11 +105,19 @@ public class Question_C {
 			arr[i] = sc.nextLong();
 			temp_arr[i] = arr[i];
 		}
-		if(n == 1) {
+//		if(n == 1) {
+//			System.out.println("NO");
+//			return ;
+//		}
+		long mx  = mex(temp_arr, n);
+		if(mx == 0) {
+			System.out.println("YES");
+			return ;
+		}
+		if(mx == n) {
 			System.out.println("NO");
 			return ;
 		}
-		long mx  = mex(temp_arr, n);
 //		System.out.println(mx);
 		HashSet<Long> hs = new HashSet<Long>();
 		ArrayList<pair> al = new ArrayList<pair>();
@@ -75,6 +129,9 @@ public class Question_C {
 			if(arr[i] < mx) {
 				hs.add(arr[i]);
 //				System.out.println(arr[i]);
+				if(hs.size() == mx && count == 0) {
+					break;
+				}
 			}
 			else {
 //				System.out.println();
@@ -88,14 +145,35 @@ public class Question_C {
 				count++;
 //				start = i;
 				i--;
+//				if(hs.size() == mx) {
+//					break;
+//				}
+				if(count > 1) {
+					hs.clear();
+				}
 			}
 		}
-		if(count > 1) {
-			System.out.println("NO");
+		if(hs.size() == mx && count == 0) {
+			System.out.println("YES");
+			return ;
+		}
+		else if(hs.size() == mx && count == 1) {
+			System.out.println("YES");
+			return ;
 		}
 		else {
-			System.out.println("YES");
+			if(count > 1 && hs.size() == mx) {
+				System.out.println("YES");
+				return ;
+			}
 		}
+		System.out.println("NO");
+//		if(count > 1 ) {
+//			System.out.println("NO");
+//		}
+//		else {
+//			System.out.println("YES");
+//		}
 	}
 	public static class FastScanner {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -129,7 +207,8 @@ public class Question_C {
 		int tc = sc.nextInt();
 //		int tc = 1;
 		while(tc-- > 0) {
-			findAnswer();
+//			findAnswer();
+			findAnswerTwo();
 		}
 	}
 }
