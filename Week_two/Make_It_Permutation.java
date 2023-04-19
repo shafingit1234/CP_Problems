@@ -70,31 +70,59 @@ public class Make_It_Permutation {
 		long remove_cost = n;
 		long insert_cost = 0;
 		HashSet<Long> hs = new HashSet<>();
-		long count = 0;
+		long count = 1;
 		for(int i=0 ; i<arr.length ; i++) {
-			long temp = arr[i];
-			if(count > (arr[arr.length-1])%mod) {
-				break;
+//			long temp = arr[i];
+			boolean check = false;
+			while(i<arr.length && count == arr[i]) {
+				i++;
+				check = true;
 			}
-			if(temp != count + 1) {
-				insert_cost++;
+			if(check == true) {
+				i--;
+			}
+			if(count != arr[i]) {
+				insert_cost+= arr[i] - count;
 				ans = Math.min(ans, cost*remove_cost + insert_cost*d_cost);
 				i--;
-				hs.add(count+1);
-				count++;
-				continue;
+//				hs.add(count);
+				count = arr[i];
 			}
-			while(i<arr.length && temp == arr[i]) {
-				i++;
+			else {
+				remove_cost -= 1;
+				ans = Math.min(ans, cost*remove_cost + insert_cost*d_cost);
+//				hs.add(count);
 			}
-			i--;
-			remove_cost -= 1;
-//			ans = Math.min(ans, b)
-			ans = Math.min(ans, cost*remove_cost + insert_cost*d_cost);
-//			count++;
-			hs.add(count+1);
-			count++;
-			continue;
+			count = arr[i];
+			
+//			if(count > (arr[arr.length-1])) {
+//				break;
+//			}
+//			if(temp != count + 1) {
+//				insert_cost++;
+//				ans = Math.min(ans, cost*remove_cost + insert_cost*d_cost);
+//				i--;
+//				hs.add(count+1);
+//				
+//			}
+//			else {
+//				
+//				boolean check = false;
+//				while(i<arr.length && temp == arr[i]) {
+//					i++;
+//					check = true;
+//				}
+//				if(check == true) {
+//					i--;				
+//				}
+//				remove_cost -= 1;
+////			ans = Math.min(ans, b)
+//				ans = Math.min(ans, cost*remove_cost + insert_cost*d_cost);
+////			count++;
+//				hs.add(count+1);
+//			}
+			
+			
 		}
 		System.out.println(ans);
 	}
@@ -130,8 +158,8 @@ public class Make_It_Permutation {
 		int tc = sc.nextInt();
 //		int tc = 1;
 		while(tc-- > 0) {
-//			findAnswer();
-			findAnswerTwo();
+			findAnswer();
+//			findAnswerTwo();
 		}
 	}
 }
