@@ -9,7 +9,7 @@ import java.util.StringTokenizer;
 
 //import Java_CP_Template.Template_One.FastScanner;
 
-public class Sheldon_And_Ice_Peices {
+public class Weird_Game {
 	public static FastScanner sc = new FastScanner();
 	public static long mod = (long)(1e9 + 7);
 	public static Long modexp(Long a,Long b)
@@ -26,36 +26,87 @@ public class Sheldon_And_Ice_Peices {
         return ans;
     }
 	public static void findAnswer() {
-		char[] str = sc.next().toCharArray();
-		char[] seq = sc.next().toCharArray();
-		long [] freq_str = new long[10];
-		long [] freq_seq = new long[10];
-		for(int i=0; i<str.length ; i++) {
-			if(str[i] == '5') {
-				str[i] = '2';
+		int n = sc.nextInt();
+		String str1 = sc.next();
+		String str2 = sc.next();
+		int total_ones_1 = 0;
+		int total_ones_2 = 0;
+		int common_ones = 0;
+		for(int i=0 ; i<str1.length() ; i++) {
+			if(str1.charAt(i) == '1') {
+				total_ones_1++;
 			}
-			if(str[i] == '9') {
-				str[i] = '6';
+			if(str2.charAt(i) == '1') {
+				total_ones_2++;
 			}
-			freq_str[str[i] - '0']++;
-		}
-		for(int i=0 ; i<seq.length ; i++) {
-			if(seq[i] == '5') {
-				seq[i] = '2';
-			}
-			if(seq[i] == '9') {
-				seq[i] = '6';
-			}
-			freq_seq[seq[i] - '0']++; 
-		}
-		long ans = Integer.MAX_VALUE;
-		for(int i=0 ; i<=9 ; i++) {
-			if(freq_str[i]!=0) {
-				ans = Math.min(ans, (freq_seq[i]/freq_str[i]));
+			if(str1.charAt(i) == '1' && str2.charAt(i) == '1') {
+				common_ones++;
 			}
 		}
-		System.out.println(ans);
-		
+		int gained_ones_1 =0;
+		int gained_ones_2= 0;
+		int turn = 0;
+		if(common_ones%2 == 0) {
+			gained_ones_1 = common_ones/2;
+			gained_ones_2 = common_ones/2;
+			turn = 1;
+		}
+		else {
+			gained_ones_1 = (common_ones + 1)/2;
+			gained_ones_2 = common_ones - gained_ones_1;
+			turn = 2;
+		}
+		total_ones_1 -= common_ones;
+		total_ones_2 -= common_ones;
+		while(total_ones_1 > 0 && total_ones_2 > 0) {
+			if(turn == 1) {
+				total_ones_1--;
+				gained_ones_1++;
+				turn = 2;
+				continue;
+			}
+			else if(turn == 2) {
+				turn = 1;
+				total_ones_2--;
+				gained_ones_2++;
+				continue;
+			}
+		}
+		if(total_ones_1 == 0) {
+			if(total_ones_2%2 == 0) {
+				gained_ones_2 += (total_ones_2)/2;
+			}
+			else {
+				if(turn == 1) {
+					gained_ones_2 += (total_ones_2 - 1)/2;
+				}
+				else {
+					gained_ones_2 += (total_ones_2 + 1)/2;
+				}
+			}
+		}
+		else if(total_ones_2 == 0) {
+			if(total_ones_1%2 == 0) {
+				gained_ones_1 += (total_ones_1)/2;
+			}
+			else {
+				if(turn == 1) {
+					gained_ones_1 += (total_ones_1 + 1)/2;
+				}
+				else {
+					gained_ones_1 += (total_ones_1 - 1)/2;
+				}
+			}
+		}
+		if(gained_ones_1 == gained_ones_2) {
+			System.out.println("Draw");
+		}
+		else if(gained_ones_1 > gained_ones_2) {
+			System.out.println("First");
+		}
+		else {
+			System.out.println("Second");
+		}
 	}
 	public static class FastScanner {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
