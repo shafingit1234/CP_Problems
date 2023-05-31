@@ -26,14 +26,23 @@ public class Movie_Critics {
         }
         return ans;
     }
-	public static void findAnswer() {
-		int n = sc.nextInt();
-		int k = sc.nextInt();
-		int [] arr = new int[n];
-		for(int i=0 ; i<n ; i++) {
-			arr[i] = sc.nextInt();
+	public static void findAnswer() throws IOException {
+//		int n = sc.nextInt();
+//		int k = sc.nextInt();
+//		int [] arr = new int[n];
+//		for(int i=0 ; i<n ; i++) {
+//			arr[i] = sc.nextInt();
+//		}
+//		//remove consecutive duplicates.
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		StringTokenizer st = new StringTokenizer(br.readLine());
+		int n = Integer.parseInt(st.nextToken());
+		int k = Integer.parseInt(st.nextToken());
+		st = new StringTokenizer(br.readLine());
+		int[] arr = new int[n];
+		for (int i = 0; i < n; i++) {
+			arr[i] = Integer.parseInt(st.nextToken());
 		}
-		//remove consecutive duplicates.
 		ArrayList<Integer> al = new ArrayList<Integer>();
 		for(int i=0 ; i<arr.length ;i++) {
 			al.add(arr[i]);
@@ -46,7 +55,7 @@ public class Movie_Critics {
 			}
 			i = j-1;
 		}
-		int[] rate_of_improvement = new int[k+1];
+		long[] rate_of_improvement = new long[k+1];
 //		System.out.print(al.get(0) + " ");
 		for(int i=1 ; i<al.size()-1 ; i++) {
 //			System.out.print(al.get(i) + " ");
@@ -61,7 +70,7 @@ public class Movie_Critics {
 		rate_of_improvement[al.get(0)]++;
 		rate_of_improvement[al.get(al.size()-1)]++;
 		//find the max
-		int mx = Integer.MIN_VALUE;
+		long mx = Integer.MIN_VALUE;
 		
 		int ans = -1;
 		for(int i = 0 ; i<rate_of_improvement.length ; i++) {
@@ -110,7 +119,7 @@ public class Movie_Critics {
         }
         Arrays.sort(a);
     }
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
 //		int tc = sc.nextInt();
 		int tc = 1;
 		while(tc-- > 0) {
