@@ -34,6 +34,42 @@ public class codeforces_816B {
 			this.b = b;
 		}
 	}
+	public static void findAnswerTwo() {
+		int n = sc.nextInt();
+		int k = sc.nextInt();
+		int q = sc.nextInt();
+		ArrayList<pair> al = new ArrayList<pair>();
+		//form a prefix sum array
+		int[] prefix = new int[200002];
+		for(int i=0 ; i<n ; i++) {
+			int a = sc.nextInt();
+			int b = sc.nextInt();
+			pair p = new pair(a, b);
+			al.add(p);
+			prefix[a]++;
+			prefix[b+1]--;
+		}
+		//form another array that will help in telling possible recipies between a certain range.
+		int[] tell = new int[200002];
+		int count = 0;
+		int spots = 0;
+		for(int i=0 ; i<prefix.length ; i++) {
+			count += prefix[i];
+			if(count >= k) {
+				spots++;
+			}
+			tell[i] = spots;
+		}
+		//answer the queries
+//		for(int i=90 ; i<)
+		while(q > 0) {
+			q--;
+			int a = sc.nextInt();
+			int b  =sc.nextInt();
+			System.out.println(tell[b] - tell[a-1]);
+		}
+		return ;
+	}
 	public static void findAnswer() {
 		int n = sc.nextInt();
 		int k = sc.nextInt();
@@ -152,7 +188,8 @@ public class codeforces_816B {
 //		int tc = sc.nextInt();
 		int tc = 1;
 		while(tc-- > 0) {
-			findAnswer();
+//			findAnswer();
+			findAnswerTwo();
 		}
 	}
 }
