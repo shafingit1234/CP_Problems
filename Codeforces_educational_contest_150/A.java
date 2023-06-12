@@ -1,4 +1,4 @@
-package Codeforces_educational_contest_147;
+package Codeforces_educational_contest_150;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -9,7 +9,7 @@ import java.util.StringTokenizer;
 
 import Java_CP_Template.Template_One.FastScanner;
 
-public class C {
+public class A {
 	public static FastScanner sc = new FastScanner();
 	public static long mod = (long)(1e9 + 7);
 	public static Long modexp(Long a,Long b)
@@ -26,30 +26,13 @@ public class C {
         return ans;
     }
 	public static void findAnswer() {
-		String str = sc.next();
-		char arr[] = str.toCharArray();
-		int ans = Integer.MAX_VALUE;
-		for(int i = 0 ; i<26 ; i++) {
-			char ch = (char) (i + 'a');
-			int cnt = 0;
-			int mx = 0;
-			for(int j=0 ; j<arr.length ; j++) {
-				if(arr[j] == ch) {
-					cnt = 0;
-				}
-				else {
-					cnt++;
-				}
-				mx = Math.max(mx, cnt);
-			}
-			cnt = 0;
-			while(mx > 0) {
-				mx = mx/2;
-				cnt++;
-			}
-			ans = Math.min(ans, cnt);
+		int n = sc.nextInt();
+		if(n <= 4) {
+			System.out.println("Bob");
 		}
-		System.out.println(ans);
+		else {
+			System.out.println("Alice");
+		}
 	}
 	public static class FastScanner {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));

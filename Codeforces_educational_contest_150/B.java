@@ -1,4 +1,4 @@
-package Codeforces_educational_contest_147;
+package Codeforces_educational_contest_150;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -7,9 +7,9 @@ import java.util.Arrays;
 import java.util.Random;
 import java.util.StringTokenizer;
 
-import Java_CP_Template.Template_One.FastScanner;
+//import Java_CP_Template.Template_One.FastScanner;
 
-public class C {
+public class B {
 	public static FastScanner sc = new FastScanner();
 	public static long mod = (long)(1e9 + 7);
 	public static Long modexp(Long a,Long b)
@@ -26,30 +26,54 @@ public class C {
         return ans;
     }
 	public static void findAnswer() {
-		String str = sc.next();
-		char arr[] = str.toCharArray();
-		int ans = Integer.MAX_VALUE;
-		for(int i = 0 ; i<26 ; i++) {
-			char ch = (char) (i + 'a');
-			int cnt = 0;
-			int mx = 0;
-			for(int j=0 ; j<arr.length ; j++) {
-				if(arr[j] == ch) {
-					cnt = 0;
+		int q = sc.nextInt();
+		long [] arr = new long[q];
+		int i=0;
+		long end = -1;
+		boolean flag = true;
+		while(q > 0) {
+			long temp = sc.nextLong();
+			if(i == 0) {
+				arr[i++] = temp;
+				System.out.print(1);
+				end = temp;
+			}
+			else {
+				if(temp >= end) {
+					if(flag) {
+						arr[i++] = temp;
+						end = temp;
+						System.out.print(1);
+						q--;
+						continue;
+					}
+					else {
+						if(temp <= arr[0]) {
+							arr[i++] = temp;
+							end= temp;
+							System.out.print(1);
+							q--;
+							continue;
+						}
+					}
 				}
 				else {
-					cnt++;
+					if(flag) {
+						if(temp <= arr[0]) {
+							arr[i++] = temp;
+							end = temp;
+							System.out.print(1);
+							q--;
+							flag = !flag;
+							continue;
+						}
+					}
 				}
-				mx = Math.max(mx, cnt);
+				System.out.print(0);
 			}
-			cnt = 0;
-			while(mx > 0) {
-				mx = mx/2;
-				cnt++;
-			}
-			ans = Math.min(ans, cnt);
+			q--;
 		}
-		System.out.println(ans);
+		System.out.println();
 	}
 	public static class FastScanner {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
