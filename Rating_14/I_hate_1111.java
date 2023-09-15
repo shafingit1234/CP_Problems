@@ -1,4 +1,4 @@
-package Codeforces_892;
+package Rating_14;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -9,7 +9,7 @@ import java.util.StringTokenizer;
 
 import Java_CP_Template.Template_One.FastScanner;
 
-public class E {
+public class I_hate_1111 {
 	public static FastScanner sc = new FastScanner();
 	public static long mod = (long)(1e9 + 7);
 	public static Long modexp(Long a,Long b)
@@ -25,44 +25,35 @@ public class E {
         }
         return ans;
     }
-	
+	public static long[] valid_patterns = {111111111,11111111,1111111,111111,11111,1111,111,11};
+	public static boolean checkNum(long num , int idx) {
+		boolean sp1 = false;
+		if(num == 0) {
+			return true;
+		}
+		if(num <= 10) {
+			return false;
+		}
+		for(int i=idx ; i<valid_patterns.length ; i++) {
+			if(valid_patterns[i] > num) {
+				continue;
+			}
+			sp1 = sp1 || checkNum(num - valid_patterns[i] , i);
+			if(sp1 == true) return sp1;
+		}
+		return sp1;
+	}
 	public static void findAnswer() {
-		int n = sc.nextInt();
-		int k = sc.nextInt();
-		long dp[][] = new long[k+1][n+1];
-		long arr[] = new long[n];
-		long b_arr[] = new long[n];
-		for(int i = 0 ; i<n ; i++) {
-			arr[i] = sc.nextLong();
+		long num = sc.nextLong();
+		boolean sp = (checkNum(num , 0));
+		if(sp) {
+			System.out.println("YES");
 		}
-		for(int i=0 ; i<n ; i++) {
-			b_arr[i] = sc.nextLong();
+		else {
+			System.out.println("NO");
 		}
-		for(int temp = 1 ; temp <= k ; temp++) {
-			for(int i = 0 ; i<n - temp + 1 ; i++) {
-				long a_l = arr[i];
-				long a_r = arr[i + temp - 1];
-				long b_l =b_arr[i];
-				long b_r = b_arr[i + temp - 1];
-				long sum = Math.abs(a_l - b_r) + Math.abs(b_l - a_r);
-				dp[temp][i] = sum;
-			}
-		}
-		//find the answer
-		long ans = -1;
-		for(int temp = 1 ; temp <= k ; temp++) {
-			for(int i = 0 ; i<=n ; i++) {
-				long a_1 = dp[temp][i];
-				int idx = i + temp;
-				long mx = 0;
-				for(int j = idx ; k - temp > 0 && j < dp[k - temp].length ; j++) {
-					mx = Math.max(mx, dp[k - temp][j]);
-				}
-				a_1 += mx;
-				ans = Math.max(a_1, ans);
-			}
-		}
-		System.out.println(ans);
+		return ;
+		
 	}
 	public static class FastScanner {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));

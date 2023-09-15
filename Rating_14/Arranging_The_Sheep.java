@@ -1,4 +1,4 @@
-package Codeforces_892;
+package Rating_14;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -9,7 +9,7 @@ import java.util.StringTokenizer;
 
 import Java_CP_Template.Template_One.FastScanner;
 
-public class E {
+public class Arranging_The_Sheep {
 	public static FastScanner sc = new FastScanner();
 	public static long mod = (long)(1e9 + 7);
 	public static Long modexp(Long a,Long b)
@@ -25,42 +25,75 @@ public class E {
         }
         return ans;
     }
-	
 	public static void findAnswer() {
-		int n = sc.nextInt();
-		int k = sc.nextInt();
-		long dp[][] = new long[k+1][n+1];
-		long arr[] = new long[n];
-		long b_arr[] = new long[n];
-		for(int i = 0 ; i<n ; i++) {
-			arr[i] = sc.nextLong();
+		int len = sc.nextInt();
+		String str = sc.next();
+		if(len == 1) {
+//			return 0;
+			System.out.println(0);
+			return ;
 		}
-		for(int i=0 ; i<n ; i++) {
-			b_arr[i] = sc.nextLong();
-		}
-		for(int temp = 1 ; temp <= k ; temp++) {
-			for(int i = 0 ; i<n - temp + 1 ; i++) {
-				long a_l = arr[i];
-				long a_r = arr[i + temp - 1];
-				long b_l =b_arr[i];
-				long b_r = b_arr[i + temp - 1];
-				long sum = Math.abs(a_l - b_r) + Math.abs(b_l - a_r);
-				dp[temp][i] = sum;
-			}
-		}
-		//find the answer
-		long ans = -1;
-		for(int temp = 1 ; temp <= k ; temp++) {
-			for(int i = 0 ; i<=n ; i++) {
-				long a_1 = dp[temp][i];
-				int idx = i + temp;
-				long mx = 0;
-				for(int j = idx ; k - temp > 0 && j < dp[k - temp].length ; j++) {
-					mx = Math.max(mx, dp[k - temp][j]);
+		long sheep_front[] = new long[str.length() + 1];
+		long sheep_back[] = new long[str.length() + 1];
+		long moves_front[] = new long[str.length() + 1];
+		long moves_back[] = new long[str.length() + 1];
+//		int len = str.length();
+		for(int i = 0 ; i<len ; i++) {
+			char ch = str.charAt(i);
+			if(i == 0) {
+				if(ch == '*') {
+					sheep_front[i]++;
 				}
-				a_1 += mx;
-				ans = Math.max(a_1, ans);
 			}
+			else {
+				if(ch == '*') {
+					sheep_front[i] = sheep_front[i-1] + 1;
+					moves_front[i] = moves_front[i-1];
+				}
+				else {
+					sheep_front[i] = sheep_front[i-1];
+					moves_front[i] = moves_front[i-1] + sheep_front[i];
+				}
+			}
+		}
+		for(int i = len-1 ; i>=0 ; i--) {
+			char ch = str.charAt(i);
+			if(i == len-1) {
+				if(ch == '*') {
+					sheep_back[i]++;
+				}
+			}
+			else {
+				if(ch == '*') {
+					sheep_back[i] = sheep_back[i+1] + 1;
+					moves_back[i] = moves_back[i+1];
+				}
+				else {
+					sheep_back[i] = sheep_back[i+1];
+					moves_back[i] = moves_back[i+1] + sheep_back[i];
+				}
+			}
+		}
+		long ans = Long.MAX_VALUE;
+		long possible_moves[] = new long[len + 1];
+		for(int i = 0 ; i<len ; i++) {
+			char ch = str.charAt(i);
+			if(ch == '*') {
+				possible_moves[i] = moves_front[i] + moves_back[i];
+			}
+			else {
+				long sp1 = Long.MAX_VALUE;
+				long sp2 = Long.MAX_VALUE;
+				if(i+1 < len) {
+					sp1 = moves_back[i+1] + moves_front[i];
+				}
+				if(i-1 >= 0) {
+					sp2 = moves_back[i] + moves_front[i-1];
+				}
+				possible_moves[i] = Math.min(sp1, sp2);	
+				
+			}
+			ans = Math.min(ans,  possible_moves[i]);
 		}
 		System.out.println(ans);
 	}

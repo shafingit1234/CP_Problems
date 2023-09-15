@@ -1,4 +1,4 @@
-package Codeforces_892;
+package Codeforces_893;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -9,7 +9,7 @@ import java.util.StringTokenizer;
 
 import Java_CP_Template.Template_One.FastScanner;
 
-public class E {
+public class A {
 	public static FastScanner sc = new FastScanner();
 	public static long mod = (long)(1e9 + 7);
 	public static Long modexp(Long a,Long b)
@@ -25,44 +25,31 @@ public class E {
         }
         return ans;
     }
-	
 	public static void findAnswer() {
-		int n = sc.nextInt();
-		int k = sc.nextInt();
-		long dp[][] = new long[k+1][n+1];
-		long arr[] = new long[n];
-		long b_arr[] = new long[n];
-		for(int i = 0 ; i<n ; i++) {
-			arr[i] = sc.nextLong();
-		}
-		for(int i=0 ; i<n ; i++) {
-			b_arr[i] = sc.nextLong();
-		}
-		for(int temp = 1 ; temp <= k ; temp++) {
-			for(int i = 0 ; i<n - temp + 1 ; i++) {
-				long a_l = arr[i];
-				long a_r = arr[i + temp - 1];
-				long b_l =b_arr[i];
-				long b_r = b_arr[i + temp - 1];
-				long sum = Math.abs(a_l - b_r) + Math.abs(b_l - a_r);
-				dp[temp][i] = sum;
+		int a = sc.nextInt();
+		int b = sc.nextInt();
+		int c = sc.nextInt();
+		
+		if(c % 2 == 1) {
+			if(a <b) {
+				System.out.println("Second");
+				return ;
+			}
+			else {
+				System.out.println("First");
+				return ;
 			}
 		}
-		//find the answer
-		long ans = -1;
-		for(int temp = 1 ; temp <= k ; temp++) {
-			for(int i = 0 ; i<=n ; i++) {
-				long a_1 = dp[temp][i];
-				int idx = i + temp;
-				long mx = 0;
-				for(int j = idx ; k - temp > 0 && j < dp[k - temp].length ; j++) {
-					mx = Math.max(mx, dp[k - temp][j]);
-				}
-				a_1 += mx;
-				ans = Math.max(a_1, ans);
+		else {
+			if(a > b) {
+				System.out.println("First");
+				return ;
+			}
+			else {
+				System.out.println("Second");
+				return ;
 			}
 		}
-		System.out.println(ans);
 	}
 	public static class FastScanner {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
