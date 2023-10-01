@@ -45,6 +45,7 @@ public class Fighting_Tournament {
 		
 		HashMap<Integer, ArrayList<Integer>> hm = new HashMap<>();
 		int round = 1;
+		//below will take O(n) time
 		while(deque.peekFirst() != n) {
 			int one = deque.pollFirst();
 			int two = deque.pollFirst();
@@ -71,10 +72,7 @@ public class Fighting_Tournament {
 		while(q-- > 0) {
 			int i = sc.nextInt();
 			int k = sc.nextInt();
-			if(n == 1) {
-				System.out.println(0);
-				continue;
-			}
+			
 			if(hm.containsKey(arr[i-1]) == false) {
 				if(arr[i-1] == n) {
 					System.out.println(k);
@@ -84,19 +82,43 @@ public class Fighting_Tournament {
 				continue;
 			}
 			ArrayList<Integer> al = hm.get(arr[i-1]);
-			int count = 0;
+//			int count = 0;
 			int mx_round = -1;
-			for(int j : al) {
-				if(j <= k) {
-					count++;
-					mx_round = Math.max(mx_round, j);
+			//binary search
+			int count = bsearch(al, k);
+			if(arr[i-1] == n) {
+				if(k > al.get(al.size()-1)) {
+					count += k - al.get(al.size()-1);
 				}
 			}
-			if(mx_round < k && arr[i-1] == n) {
-				count += k - mx_round;
-			}
+//			for(int j : al) {
+//				if(j <= k) {
+//					count++;
+//				}
+//				mx_round = Math.max(mx_round, j);
+//			}
+//			if(mx_round < k && arr[i-1] == n) {
+//				count += k - mx_round;
+//			}
+			
 			System.out.println(count);
 		}
+	}
+	public static int bsearch(ArrayList<Integer> al, int k) {
+		int start = 0;
+		int end = al.size()-1;
+		int ans = -1;
+		while(start <= end) {
+			int mid = end + (start - end)/2;
+			if(al.get(mid) > k) {
+				end = mid-1;
+			}
+			else {
+				ans = mid;
+				start = mid+1;
+			}
+		}
+		return ans+1;
 	}
 	public static class FastScanner {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
